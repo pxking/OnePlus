@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AddressMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Address">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="recvname" jdbcType="VARCHAR" property="recvname" />
+    <result column="recvprovince" jdbcType="VARCHAR" property="recvprovince" />
+    <result column="recvcity" jdbcType="VARCHAR" property="recvcity" />
+    <result column="recvarea" jdbcType="VARCHAR" property="recvarea" />
+    <result column="recvdistrict" jdbcType="VARCHAR" property="recvdistrict" />
+    <result column="recvaddress" jdbcType="VARCHAR" property="recvaddress" />
+    <result column="recvphone" jdbcType="VARCHAR" property="recvphone" />
+    <result column="recvtel" jdbcType="VARCHAR" property="recvtel" />
+    <result column="recvzip" jdbcType="VARCHAR" property="recvzip" />
+    <result column="recvtag" jdbcType="VARCHAR" property="recvtag" />
+    <result column="isdefault" jdbcType="INTEGER" property="isdefault" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, recvname, recvprovince, recvcity, recvarea, recvdistrict, recvaddress, recvphone, 
+    recvtel, recvzip, recvtag, isdefault
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Address">
+    insert into address (id, uid, recvname, 
+      recvprovince, recvcity, recvarea, 
+      recvdistrict, recvaddress, recvphone, 
+      recvtel, recvzip, recvtag, 
+      isdefault)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{recvname,jdbcType=VARCHAR}, 
+      #{recvprovince,jdbcType=VARCHAR}, #{recvcity,jdbcType=VARCHAR}, #{recvarea,jdbcType=VARCHAR}, 
+      #{recvdistrict,jdbcType=VARCHAR}, #{recvaddress,jdbcType=VARCHAR}, #{recvphone,jdbcType=VARCHAR}, 
+      #{recvtel,jdbcType=VARCHAR}, #{recvzip,jdbcType=VARCHAR}, #{recvtag,jdbcType=VARCHAR}, 
+      #{isdefault,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Address">
+    insert into address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="recvname != null">
+        recvname,
+      </if>
+      <if test="recvprovince != null">
+        recvprovince,
+      </if>
+      <if test="recvcity != null">
+        recvcity,
+      </if>
+      <if test="recvarea != null">
+        recvarea,
+      </if>
+      <if test="recvdistrict != null">
+        recvdistrict,
+      </if>
+      <if test="recvaddress != null">
+        recvaddress,
+      </if>
+      <if test="recvphone != null">
+        recvphone,
+      </if>
+      <if test="recvtel != null">
+        recvtel,
+      </if>
+      <if test="recvzip != null">
+        recvzip,
+      </if>
+      <if test="recvtag != null">
+        recvtag,
+      </if>
+      <if test="isdefault != null">
+        isdefault,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="recvname != null">
+        #{recvname,jdbcType=VARCHAR},
+      </if>
+      <if test="recvprovince != null">
+        #{recvprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="recvcity != null">
+        #{recvcity,jdbcType=VARCHAR},
+      </if>
+      <if test="recvarea != null">
+        #{recvarea,jdbcType=VARCHAR},
+      </if>
+      <if test="recvdistrict != null">
+        #{recvdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="recvaddress != null">
+        #{recvaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recvphone != null">
+        #{recvphone,jdbcType=VARCHAR},
+      </if>
+      <if test="recvtel != null">
+        #{recvtel,jdbcType=VARCHAR},
+      </if>
+      <if test="recvzip != null">
+        #{recvzip,jdbcType=VARCHAR},
+      </if>
+      <if test="recvtag != null">
+        #{recvtag,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null">
+        #{isdefault,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Address">
+    update address
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="recvname != null">
+        recvname = #{recvname,jdbcType=VARCHAR},
+      </if>
+      <if test="recvprovince != null">
+        recvprovince = #{recvprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="recvcity != null">
+        recvcity = #{recvcity,jdbcType=VARCHAR},
+      </if>
+      <if test="recvarea != null">
+        recvarea = #{recvarea,jdbcType=VARCHAR},
+      </if>
+      <if test="recvdistrict != null">
+        recvdistrict = #{recvdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="recvaddress != null">
+        recvaddress = #{recvaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recvphone != null">
+        recvphone = #{recvphone,jdbcType=VARCHAR},
+      </if>
+      <if test="recvtel != null">
+        recvtel = #{recvtel,jdbcType=VARCHAR},
+      </if>
+      <if test="recvzip != null">
+        recvzip = #{recvzip,jdbcType=VARCHAR},
+      </if>
+      <if test="recvtag != null">
+        recvtag = #{recvtag,jdbcType=VARCHAR},
+      </if>
+      <if test="isdefault != null">
+        isdefault = #{isdefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Address">
+    update address
+    set uid = #{uid,jdbcType=INTEGER},
+      recvname = #{recvname,jdbcType=VARCHAR},
+      recvprovince = #{recvprovince,jdbcType=VARCHAR},
+      recvcity = #{recvcity,jdbcType=VARCHAR},
+      recvarea = #{recvarea,jdbcType=VARCHAR},
+      recvdistrict = #{recvdistrict,jdbcType=VARCHAR},
+      recvaddress = #{recvaddress,jdbcType=VARCHAR},
+      recvphone = #{recvphone,jdbcType=VARCHAR},
+      recvtel = #{recvtel,jdbcType=VARCHAR},
+      recvzip = #{recvzip,jdbcType=VARCHAR},
+      recvtag = #{recvtag,jdbcType=VARCHAR},
+      isdefault = #{isdefault,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+<div>
+    <input type="button" id="login" value="登录"><input type="button" value="注册" id="register">
+</div>
+
+<div><input type="image" src="/images/personage/user.jpg" width="50px" height="50px"/>
+    <img src="/images/personage/user.jpg" width="50px" height="50px"/>
+    <input type="file" name="avatarFile" />
+</div>
+<div><input type="button" value="修改个人资料" id="changeInfo"/></div>
+<!--<a href="/user/login-.html">登录</a><br>
+<a href="register-.html">注册</a><br> -->
+</body>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script>
+    $('#login').click(function(){
+        window.location.href="/html/login.html"
+    });
+</script>
+<script>
+    $('#register').click(function(){
+        window.location.href="/html/register.html"
+    });
+</script>
+<script>
+    // 先获取当前有无用户信息，如果没有则提示当前无用户登录信息，并返回登录页面/
+    // 如果有则读取当前用户信息并填充页面对应的数据信息
+
+        $('#changeInfo').click(function () {
+
+           /* window.location.href="/html/changeUserInfo.html";*/
+            var url = "/user/viewUserInfo";
+            var data = "";
+            $.ajax({
+                "url":url,
+                "data":data,
+                "dataType":"json",
+                "type":"post",
+                "success":function(json){
+                    if (json.state==200){
+                        window.location.href="/html/changeUserInfo.html";
+                    } else {
+                        window.location.href="/html/login.html";
+                    }
+                }
+            });
+    });
+</script>
+</html>

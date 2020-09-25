@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+</head>
+<body>
+<h1>欢迎注册</h1><br>
+用户名：<input type="text" placeholder="请输入用户名" id="name"><br>
+密码：<input type="password" placeholder="请输入密码" id="password"><br>
+确认密码：<input type="password" placeholder="请重新输入密码" id="password2"><br>
+手机号：<input type="text" placeholder="请输入手机号" id="phone"><br>
+邮箱：<input type="text" placeholder="请输入邮箱" id="email"><br>
+性别：男<input type="radio" value="0" name="gender" checked>女<input type="radio" value="1" name="gender"><br>
+<input type="button" value="提交注册信息" id="bt-reg">
+<!-- <span class="msg-default">用户名长度在6到9位之间</span>
+<span class="msg-default hidden">密码长度在6到12位之间</span>
+<span class="msg-default hidden">两次密码不一致</span>
+<span class="msg-default hidden">请输入合法的手机号码</span>
+<span class="msg-default hidden">请输入合法的邮箱地址</span> -->
+</body>
+<script src="/js/jquery-3.1.1.min.js">  </script>
+<script>
+    $('#bt-reg').click(function(){
+        var url ="../user/reg.do";
+        var name = $("#name").val();
+        var password = $("#password").val();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var gender = $("input[name='gender']:checked").val();
+        var data = "name=" + name + "&password=" + password + "&phone=" + phone + "&email=" +email + "&gender=" + gender;
+
+        $.ajax({
+            "url": url,
+            "data":data,
+            "type":"POST",
+            "dataType":"json",
+            "success":function(json){
+                if (json.state == 403){
+                    window.location.href="/html/register.html"
+                    alert(json.message)
+                }else if (json.state == 200){
+                    window.location.href="/html/login.html"
+                    alert("恭喜你注册成功了")
+                } else {
+                    window.location.href="/html/register.html"
+                    alert("注册失败了")
+                }
+            }
+        });
+    })
+</script>
+<script>
+    name.onblur = function () {
+        if (this.validity.valueMissing){
+            this.nextElementSibling.innerHTML='用户名不能为空';
+            this.nextElementSibling.className='meg-err';
+            this.setCustomValidity('用户名不能为空');
+        }else  if (this.validity.tooShort){
+            this.nextElementSibling.innerHTML='用户名不能小于6位';
+            this.nextElementSibling.className='meg-err';
+            this.setCustomValidity('用户名不能小于6位')
+        }else{
+            this.nextElementSibling.innerHTML='用户名格式正确';
+            this.nextElementSibling.className='meg-success';
+            this.setCustomValidity('');
+            var data = document.getElementById("name").value;
+            if (!data){
+                return;
+            }
+        }
+        var xhr = new XMLHttpRequest();
+        console.log(xhr);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState===4){
+                if (xhr.status === 200){
+                    console.log('响应成功并完成');
+                    doResponse(xhr);
+                }
+            }
+        }
+
+        xhr.open('GET','/checkUsername.html?username='+data,true);
+        xhr.send(null);
+
+        function doResponse(xhr){
+            console.log('开始处理响应数据');
+            if (xhr.responseText ==='yes'){
+                alert('该用户名被占用');
+            } else if (xhr.responseText ==='no'){
+                alert('用户名可用');
+            }else {
+                alert(xhr.responseText);
+            }
+        }
+
+    }
+</script>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+用户名：<input type="text" placeholder="请输入用户名" id="username"><br>
+密码：<input type="password" placeholder="请输入密码" id="userpassword" minlength="6" maxlength="20"><br>
+<input type="button" value="登录" id="bt-login" onclick="Save()"><input type="button" value="注册" id="bt-reg">
+<dev id="showResult"></dev>
+<!-- <a href="register-.html">新用户注册</a></span> -->
+</body>
+
+<script src="/js/jquery-3.1.1.min.js" ></script>
+<script>
+    $('#bt-login').click(function(){
+        var url = "../user/login.do";
+        var username =$("#username").val();
+        var userpassword = $("#userpassword").val();
+        var data = "name=" + username + "&password=" + userpassword;
+        $.ajax({
+            "url": url,
+            "data": data,
+            "type": "post",
+            "dataType": "json",
+            "success": function (json) {
+                if (json.state == 401) {
+                    alert(json.message)
+                } else if (json.state == 200) {
+                    window.location.href="/index"
+                } else if (json.state == 402) {
+                    alert(json.message)
+                } else {
+                    alert("???")
+                }
+            }
+        });
+    });
+</script>
+<script>
+    $('#bt-reg').click(function () {
+        window.location.href="/html/register.html"
+    });
+</script>
+<script>
+    $("#username").blur(function(){
+        var name = $("#username").val();
+        if (name == null || name == ""){
+            $("#showResult").text("用户名不能为空");
+            $("#showResult").css("color","red");
+        }
+    });
+</script>
+</html>
